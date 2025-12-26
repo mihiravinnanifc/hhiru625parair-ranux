@@ -6,7 +6,6 @@
 <title>RANUMITHA-X-MD PAIR</title>
 
 <style>
-/* 🌌 Smooth Animated Background */
 body {
   margin: 0;
   height: 100vh;
@@ -27,7 +26,6 @@ body {
   100% { background-size:110%; background-position:center; }
 }
 
-/* 🧊 Glass UI */
 .container {
   z-index: 5;
   text-align: center;
@@ -41,7 +39,6 @@ body {
   border-radius: 14px;
 }
 
-/* Input */
 .input-container {
   display: flex;
   margin-top: 10px;
@@ -72,7 +69,6 @@ body {
   transform: scale(1.05);
 }
 
-/* Glow */
 .glowing-text {
   margin-top: 18px;
   color: white;
@@ -85,7 +81,6 @@ body {
   to { text-shadow: 0 0 18px #00ffcc; }
 }
 
-/* 🔊 Music Button */
 #music-btn {
   position: fixed;
   top: 15px;
@@ -99,51 +94,34 @@ body {
   font-size: 22px;
   cursor: pointer;
   z-index: 10;
-  transition: transform 0.3s;
 }
-#music-btn:hover { transform: scale(1.15); }
 
-/* ❄️ 1 / 0 Binary Rain */
-.binary {
+.binary, .snow {
   position: fixed;
   inset: 0;
   pointer-events: none;
-  z-index: 2;
-  font-family: monospace;
 }
 
 .bit {
   position: absolute;
   top: -20px;
   color: rgba(0,255,120,0.85);
-  font-size: 16px;
+  font-family: monospace;
   animation: fall linear infinite;
 }
 
 @keyframes fall {
-  from { transform: translateY(0); }
   to { transform: translateY(110vh); }
-}
-
-/* ❄️ Snowflakes */
-.snow {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 1; /* behind binary rain and UI */
 }
 
 .snowflake {
   position: absolute;
   top: -10px;
   color: white;
-  font-size: 10px;
-  opacity: 0.8;
   animation: snowFall linear infinite;
 }
 
 @keyframes snowFall {
-  from { transform: translateY(0) rotate(0deg); }
   to { transform: translateY(110vh) rotate(360deg); }
 }
 </style>
@@ -151,20 +129,15 @@ body {
 
 <body>
 
-<!-- 🎵 Background Music -->
 <audio id="bg-music" autoplay loop>
-  <source src="https://github.com/Ranumithaofc/RANU-FILE-S-/raw/refs/heads/main/Audio/Under%20The%20Influence%20%C3%97%20Renegade%20-%20mashup%20tiktok%20(nightcorespeed%20up).mp3" type="audio/mpeg">
+  <source src="https://github.com/Ranumithaofc/RANU-FILE-S-/raw/refs/heads/main/Audio/Under%20The%20Influence%20%C3%97%20Renegade%20-%20mashup%20tiktok%20(nightcorespeed%20up).mp3">
 </audio>
 
 <button id="music-btn">🔊</button>
 
-<!-- ❄️ Binary Snow -->
 <div class="binary"></div>
-
-<!-- ❄️ Snowflakes -->
 <div class="snow"></div>
 
-<!-- UI -->
 <div class="container">
   <div class="box">
     <h2>RANUMITHA-X-MD PAIR</h2>
@@ -185,66 +158,85 @@ body {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.0.0-alpha.1/axios.min.js"></script>
 
 <script>
-/* Pair Code */
 const pair = document.getElementById("pair");
+
 document.getElementById("submit").onclick = async () => {
   const num = document.getElementById("number").value;
-  if (!num) return pair.innerHTML = "<b>❗ Enter number</b>";
+  if (!num) {
+    pair.innerHTML = "<b>❗ Enter number</b>";
+    return;
+  }
+
   pair.innerHTML = "<b>Please wait...</b>";
+
   try {
     let { data } = await axios(`/code?number=${num}`);
-    pair.innerHTML = `<b style="color:red">CODE: <span style="color:black">${data.code}</span></b>`;
+
+    pair.innerHTML = `
+      <b id="copyCode" style="color:red;cursor:pointer;">
+        CODE: <span style="color:black">${data.code}</span>
+      </b>
+      <br><small>(Tap to copy)</small>
+    `;
+
+    enableCopy();
   } catch {
     pair.innerHTML = "<b>Service Unavailable</b>";
   }
 };
 
-/* 🔊 Music */
+// 📋 Copy on click
+function enableCopy() {
+  const el = document.getElementById("copyCode");
+  el.onclick = async () => {
+    const code = el.innerText.replace("CODE:", "").trim();
+    await navigator.clipboard.writeText(code);
+    el.innerHTML = "COPIED ✅";
+    el.style.color = "lime";
+
+    setTimeout(() => {
+      el.innerHTML = `CODE: <span style="color:black">${code}</span>`;
+      el.style.color = "red";
+    }, 800);
+  };
+}
+
+// Music control
 const music = document.getElementById("bg-music");
 const btn = document.getElementById("music-btn");
 
-document.addEventListener("click",()=>{
-  if(music.paused) music.play().catch(()=>{});
-},{once:true});
+document.addEventListener("click",()=>{ music.play().catch(()=>{}); },{once:true});
 
 btn.onclick = ()=>{
   if(music.paused){ music.play(); btn.innerHTML="🔊"; }
   else{ music.pause(); btn.innerHTML="🔇"; }
 };
 
-/* ❄️ Smooth 1 / 0 Binary Snow */
+// Binary rain
 const binary = document.querySelector(".binary");
-
-function createBit(){
+setInterval(()=>{
   const b = document.createElement("div");
   b.className = "bit";
   b.innerText = Math.random() > 0.5 ? "1" : "0";
   b.style.left = Math.random()*100 + "vw";
   b.style.fontSize = (14 + Math.random()*10) + "px";
   b.style.animationDuration = (8 + Math.random()*8) + "s";
-  b.style.opacity = 0.4 + Math.random()*0.6;
   binary.appendChild(b);
-  setTimeout(()=>b.remove(),18000);
-}
+  setTimeout(()=>b.remove(),15000);
+},120);
 
-setInterval(createBit,120);
-
-/* ❄️ Falling Snowflakes */
+// Snow
 const snow = document.querySelector(".snow");
-
-function createSnowflake() {
+setInterval(()=>{
   const s = document.createElement("div");
   s.className = "snowflake";
   s.innerText = "❄";
-  s.style.left = Math.random() * 100 + "vw";
-  s.style.fontSize = (8 + Math.random() * 12) + "px";
-  s.style.animationDuration = (5 + Math.random() * 10) + "s";
-  s.style.opacity = 0.3 + Math.random() * 0.7;
+  s.style.left = Math.random()*100 + "vw";
+  s.style.fontSize = (8 + Math.random()*12) + "px";
+  s.style.animationDuration = (5 + Math.random()*10) + "s";
   snow.appendChild(s);
-  setTimeout(() => s.remove(), 15000);
-}
-
-setInterval(createSnowflake, 200);
+  setTimeout(()=>s.remove(),15000);
+},200);
 </script>
 
 </body>
