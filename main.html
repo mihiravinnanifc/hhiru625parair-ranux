@@ -1,131 +1,271 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="shortcut icon" href="" type="image/x-icon">
-  <style>
-    body {
-      background-color: black;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      margin: 0;
-      color: white;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RANUMITHA-X-MD BOT</title>
 
-    {
-            "@context": "https://schema.org",
-            "@type": "Organization",
-            "url": "https://railway.app",
-            "logo": "https://raw.githubusercontent.com/Ranumithaofc/RANU-FILE-S-/refs/heads/main/images/GridArt_PAIR%20IMG.jpg"
-    }
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    .button-container {
-      text-align: center;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;}
+body{background:#020b1c;color:#fff;min-height:100vh;overflow-x:hidden;transition:.4s;}
+body.light{background:#f4f6fb;color:#111;}
 
-    h3 {
-      margin-top: -40px;
-      opacity: 0;
-      animation: fadeIn 3s forwards;
-    }
+.container{max-width:1200px;margin:auto;padding:20px;position:relative;z-index:10;}
 
-    .button {
-      width: 140px;
-      height: 40px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      padding: 0px 15px;
-      background-color: red;
-      border-radius: 10px;
-      border: none;
-      color: white;
-      position: relative;
-      cursor: pointer;
-      font-weight: 900;
-      transition-duration: .2s;
-      background: linear-gradient(0deg, #000, #272727);
-      text-decoration: none;
-    }
+header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:20px;
+  padding:20px 0;
+}
 
-  
-    footer {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    background-color: #222; /* Darker gray footer background */
-    color: #fff;
-    padding: 10px 0;
-    text-align: center;
-    font-size: 14px;
-    
-  }
-    .button:before, .button:after {
-      content: '';
-      position: absolute;
-      left: -2px;
-      top: -2px;
-      border-radius: 10px;
-      background: linear-gradient(45deg, #48ff00, #15ff00, #000000,#000000, #ff0000);
-      background-size: 400%;
-      width: calc(100% + 4px);
-      height: calc(100% + 4px);
-      z-index: -1;
-      animation: steam 10s linear infinite;
-    }
+.logo-area{display:flex;align-items:center;gap:15px;}
 
-    @keyframes steam {
-      0% {
-        background-position: 0 0;
-      }
+.theme-toggle{
+  width:50px;height:50px;border-radius:50%;
+  background:rgba(33,150,243,.2);
+  border:2px solid #2196f3;
+  color:#2196f3;
+  font-size:1.4rem;
+  cursor:pointer;
+}
 
-      50% {
-        background-position: 400% 0;
-      }
+.logo-img{
+  width:80px;height:80px;
+  border-radius:50%;
+  border:3px solid #2196f3;
+  object-fit:cover;
+}
 
-      100% {
-        background-position: 0 0;
-      }
-    }
+.logo-text{
+  font-size:2.2rem;
+  font-weight:700;
+  background:linear-gradient(45deg,#2196f3,#64b5f6);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
 
-    .button:after {
-      filter: blur(50px);
-    }
+.music-player{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  background:rgba(33,150,243,.15);
+  padding:10px 15px;
+  border-radius:50px;
+  border:2px solid #2196f3;
+}
 
-    .button span {
-      z-index: 1;
-    }
+.music-btn{
+  width:40px;height:40px;
+  border-radius:50%;
+  border:none;
+  background:#2196f3;
+  color:#fff;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
 
-    @keyframes fadeIn {
-      to {
-        opacity: 1;
-      }
-    }
-  </style>
+.music-player input[type="range"]{
+  width:120px;
+  cursor:pointer;
+}
+
+.banner{
+  width:100%;
+  height:300px;
+  margin:40px 0;
+  border-radius:15px;
+  background:url('https://raw.githubusercontent.com/Ranumithaofc/RANU-FILE-S-/refs/heads/main/images/GridArt_20250726_193256660.jpg') center/cover;
+  box-shadow:0 0 25px rgba(33,150,243,.6);
+}
+
+.buttons{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:20px;
+  margin-bottom:40px;
+}
+
+.btn{
+  padding:15px 30px;
+  border-radius:50px;
+  background:linear-gradient(45deg,#2196f3,#42a5f5);
+  color:#fff;
+  text-decoration:none;
+  font-weight:600;
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.features{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:30px;
+  margin-top:60px;
+}
+
+.feature-card{
+  padding:30px;
+  border-radius:20px;
+  background:linear-gradient(145deg,#0b1630,#0f2147);
+  text-align:center;
+  position:relative;
+  overflow:hidden;
+}
+
+/* ✅ GREEN LINE – ROUNDED CORNERS FIX */
+.feature-card::before{
+  content:"";
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:5px;
+  background:linear-gradient(90deg,#00ff88,#00c853);
+  border-radius:20px 20px 0 0;
+}
+
+.feature-icon{
+  font-size:3rem;
+  color:#6fdcff;
+  margin-bottom:15px;
+}
+
+body.light .feature-card{
+  background:#ffffff;
+  color:#111;
+  box-shadow:0 10px 25px rgba(0,0,0,.12);
+}
+
+footer{
+  margin-top:60px;
+  text-align:center;
+  padding:20px;
+}
+
+.snow-container{
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:1;
+}
+
+.snowflake{
+  position:absolute;
+  top:-10px;
+  color:#64b5f6;
+  animation:fall linear forwards;
+}
+
+@keyframes fall{
+  to{transform:translateY(110vh);}
+}
+
+@media(max-width:768px){
+  .logo-text{font-size:1.5rem;}
+  .logo-img{width:60px;height:60px;}
+  .banner{height:200px;}
+}
+</style>
 </head>
+
 <body>
-  <div class="button-container">
-    <h3> RANUMITHA-X-MD SESSION</h3>
-    <div></div>
-    <a href="/pair" class="button" target="_blank"> <span>PAIRING-CODE</span> </a> <br>
-    <a href="https://dashboard.heroku.com/new?template=https://github.com/Ranumithaofc/RANUMITHA-X-MD" class="button" target="_blank"> <span>HEROKU</span> </a> <br>
-    <a href="https://chat.whatsapp.com/JNATLE4Sywc7XWJb7Wh8ka" class="button" target="_blank"> <span>GROUP</span> </a> <br>
-    <a href="https://whatsapp.com/channel/0029VbBSa2tIN9iqWW0kaU20" class="button" target="_blank"> <span>CHANNEL</span> </a> <br>
 
-    <p>HAVE ANY ERROR CLICK ERROR BUTTON</p>
+<div class="snow-container" id="snow"></div>
 
-    <a href="https://wa.me/94762095304" class="button" target="_blank"> <span>ERROR</span> </a> <br>
+<div class="container">
 
-    <footer>
-     RANUMITHA-X-MD &copy; <span id="currentYear"></span>
-    </footer>
-  
+<header>
+  <div class="logo-area">
+    <button class="theme-toggle" id="themeBtn"><i class="fas fa-moon"></i></button>
+    <img src="https://raw.githubusercontent.com/Ranumithaofc/RANU-FILE-S-/refs/heads/main/images/alive%20boy%20img%20only.jpg" class="logo-img">
+    <div class="logo-text">RANUMITHA-X-MD BOT</div>
+  </div>
+
+  <div class="music-player">
+    <button class="music-btn" id="stopBtn"><i class="fas fa-stop"></i></button>
+    <button class="music-btn" id="playBtn"><i class="fas fa-play"></i></button>
+    <input type="range" id="volumeBar" min="0" max="1" step="0.01" value="0.7">
+  </div>
+</header>
+
+<div class="banner"></div>
+
+<div class="buttons">
+  <a href="https://ranupairex-0dcff2be0162.herokuapp.com/pair" class="btn"><i class="fas fa-link"></i> Pair Now</a>
+  <a href="https://wa.me/94762095304" class="btn"><i class="fas fa-user"></i> Contact Owner</a>
+  <a href="https://dashboard.heroku.com/new?template=https://github.com/Ranumithaofc/RANUMITHA-X-MD" class="btn"><i class="fas fa-server"></i> Heroku</a>
+  <a href="https://chat.whatsapp.com/JNATLE4Sywc7XWJb7Wh8ka" class="btn"><i class="fas fa-users"></i> Group</a>
+  <a href="https://whatsapp.com/channel/0029VbBSa2tIN9iqWW0kaU20" class="btn"><i class="fas fa-broadcast-tower"></i> Channel</a>
+</div>
+
+<section class="features">
+  <div class="feature-card">
+    <div class="feature-icon"><i class="fas fa-bolt"></i></div>
+    <h3>Fast</h3>
+    <p>Ultra speed performance</p>
+  </div>
+  <div class="feature-card">
+    <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
+    <h3>Secure</h3>
+    <p>Safe & protected</p>
+  </div>
+  <div class="feature-card">
+    <div class="feature-icon"><i class="fas fa-star"></i></div>
+    <h3>Premium</h3>
+    <p>Top quality service</p>
+  </div>
+</section>
+
+<footer>
+  &copy; RANUMITHA-X-MD OFC
+</footer>
+
+</div>
+
+<script>
+const themeBtn=document.getElementById("themeBtn");
+themeBtn.onclick=()=>{
+  document.body.classList.toggle("light");
+  themeBtn.innerHTML=document.body.classList.contains("light")
+    ? '<i class="fas fa-sun"></i>'
+    : '<i class="fas fa-moon"></i>';
+};
+
+const snow=document.getElementById("snow");
+setInterval(()=>{
+  const s=document.createElement("div");
+  s.className="snowflake";
+  s.innerText="❄";
+  s.style.left=Math.random()*100+"vw";
+  s.style.fontSize=14+Math.random()*12+"px";
+  s.style.animationDuration=5+Math.random()*3+"s";
+  snow.appendChild(s);
+  setTimeout(()=>s.remove(),8000);
+},120);
+
+const audio = new Audio("https://github.com/Ranumithaofc/RANU-FILE-S-/raw/refs/heads/main/Audio/Mathakada%20Handawe%20%20%E0%B6%B8%E0%B6%AD%E0%B6%9A%E0%B6%AF%20%E0%B7%84%E0%B6%B1%E0%B6%AF%E0%B7%80%20%20Piano%20Cover%20By%20Prageeth%20Kavindu.mp3");
+audio.volume = 0.7;
+
+window.addEventListener("load", ()=>{
+  setTimeout(()=>{audio.play().catch(()=>{});},500);
+});
+
+playBtn.onclick = ()=>audio.play();
+stopBtn.onclick = ()=>{
+  audio.pause();
+  audio.currentTime=0;
+};
+volumeBar.oninput = e=>audio.volume=e.target.value;
+</script>
+
 </body>
 </html>
