@@ -81,7 +81,7 @@ header{
   height:300px;
   margin:40px 0;
   border-radius:15px;
-  background:url('https://raw.githubusercontent.com/Ranumithaofc/RANU-FILE-S-/refs/heads/main/images/GridArt_20250726_193256660.jpg') center/cover;
+  background:url('https://raw.githubusercontent.com/Ranumithaofc/RANU-FILE-S-/refs/heads/main/images/IMG-20251227-WA0023.jpg') center/cover;
   box-shadow:0 0 25px rgba(33,150,243,.6);
 }
 
@@ -121,14 +121,11 @@ header{
   overflow:hidden;
 }
 
-/* ✅ GREEN LINE – ROUNDED CORNERS FIX */
 .feature-card::before{
   content:"";
   position:absolute;
-  top:0;
-  left:0;
-  width:100%;
-  height:5px;
+  top:0;left:0;
+  width:100%;height:5px;
   background:linear-gradient(90deg,#00ff88,#00c853);
   border-radius:20px 20px 0 0;
 }
@@ -140,7 +137,7 @@ header{
 }
 
 body.light .feature-card{
-  background:#ffffff;
+  background:#fff;
   color:#111;
   box-shadow:0 10px 25px rgba(0,0,0,.12);
 }
@@ -232,7 +229,7 @@ footer{
 </div>
 
 <script>
-const themeBtn=document.getElementById("themeBtn");
+/* 🌗 Theme */
 themeBtn.onclick=()=>{
   document.body.classList.toggle("light");
   themeBtn.innerHTML=document.body.classList.contains("light")
@@ -240,7 +237,7 @@ themeBtn.onclick=()=>{
     : '<i class="fas fa-moon"></i>';
 };
 
-const snow=document.getElementById("snow");
+/* ❄ Snow */
 setInterval(()=>{
   const s=document.createElement("div");
   s.className="snowflake";
@@ -252,19 +249,34 @@ setInterval(()=>{
   setTimeout(()=>s.remove(),8000);
 },120);
 
-const audio = new Audio("https://github.com/Ranumithaofc/RANU-FILE-S-/raw/refs/heads/main/Audio/Mathakada%20Handawe%20%20%E0%B6%B8%E0%B6%AD%E0%B6%9A%E0%B6%AF%20%E0%B7%84%E0%B6%B1%E0%B6%AF%E0%B7%80%20%20Piano%20Cover%20By%20Prageeth%20Kavindu.mp3");
-audio.volume = 0.7;
+/* 🎵 Playlist */
+const playlist=[
+ "https://github.com/Ranumithaofc/RANU-FILE-S-/raw/refs/heads/main/Audio/Mathakada%20Handawe%20%20%E0%B6%B8%E0%B6%AD%E0%B6%9A%E0%B6%AF%20%E0%B7%84%E0%B6%B1%E0%B6%AF%E0%B7%80%20%20Piano%20Cover%20By%20Prageeth%20Kavindu.mp3",
+ "https://github.com/Ranumithaofc/RANU-FILE-S-/raw/refs/heads/main/Audio/Me%20Hitha%20Sanasa%20(%20%E0%B6%B8%20%E0%B7%84%E0%B6%AD%20%E0%B7%83%E0%B6%B1%E0%B7%83%20)%20-%20Uvindu%20Ayshcharya%20%20Lyrics%20Video.mp3",
+ "https://github.com/Ranumithaofc/RANU-FILE-S-/raw/refs/heads/main/Audio/AASHIQUI%202%20MASHUP%20FULL%20SONG%20%20KIRAN%20KAMATH%20%20BEST%20BOLLYWOOD%20MASHUPS.mp3"
+];
 
-window.addEventListener("load", ()=>{
-  setTimeout(()=>{audio.play().catch(()=>{});},500);
+let index=0;
+const audio=new Audio(playlist[index]);
+audio.volume=0.7;
+
+/* loop playlist */
+audio.addEventListener("ended",()=>{
+  index=(index+1)%playlist.length;
+  audio.src=playlist[index];
+  audio.play();
 });
 
-playBtn.onclick = ()=>audio.play();
-stopBtn.onclick = ()=>{
+/* auto play */
+window.onload=()=>setTimeout(()=>audio.play().catch(()=>{}),500);
+
+/* controls */
+playBtn.onclick=()=>audio.play();
+stopBtn.onclick=()=>{
   audio.pause();
   audio.currentTime=0;
 };
-volumeBar.oninput = e=>audio.volume=e.target.value;
+volumeBar.oninput=e=>audio.volume=e.target.value;
 </script>
 
 </body>
