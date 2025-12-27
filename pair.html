@@ -129,7 +129,6 @@ body {
 
 <body>
 
-<!-- 🎵 Background Music -->
 <audio id="bg-music" autoplay loop>
   <source src="https://github.com/Ranumithaofc/RANU-FILE-S-/raw/refs/heads/main/Audio/Under%20The%20Influence%20%C3%97%20Renegade%20-%20mashup%20tiktok%20(nightcorespeed%20up).mp3">
 </audio>
@@ -151,6 +150,7 @@ body {
 
     <br>
     <div id="pair"></div>
+    <div id="timer" style="margin-top:10px;color:green;font-weight:bold;"></div>
   </div>
 
   <div class="glowing-text">Powered By RANUMITHA-X-MD</div>
@@ -160,6 +160,8 @@ body {
 
 <script>
 const pair = document.getElementById("pair");
+const timerEl = document.getElementById("timer");
+let countdownInterval;
 
 document.getElementById("submit").onclick = async () => {
   const num = document.getElementById("number").value;
@@ -170,6 +172,8 @@ document.getElementById("submit").onclick = async () => {
   }
 
   pair.innerHTML = "<b>Please wait...</b>";
+  timerEl.innerHTML = "";
+  clearInterval(countdownInterval);
 
   try {
     let { data } = await axios(`/code?number=${num}`);
@@ -179,23 +183,17 @@ document.getElementById("submit").onclick = async () => {
         CODE: <span style="color:black">${data.code}</span>
       </b>
       <br><small>(Tap to copy)</small>
-      <br><br>
-      <small style="color:green;">Restarting in 5 seconds...</small>
     `;
 
     enableCopy();
-
-    // 🔁 AUTO RESTART
-    setTimeout(() => {
-      location.reload();
-    }, 5000);
+    startCountdown(60);
 
   } catch {
     pair.innerHTML = "<b>Service Unavailable</b>";
   }
 };
 
-// 📋 Copy function
+// 📋 Copy
 function enableCopy() {
   const el = document.getElementById("copyCode");
   el.onclick = async () => {
@@ -204,6 +202,22 @@ function enableCopy() {
     el.innerHTML = "COPIED ✅";
     el.style.color = "lime";
   };
+}
+
+// ⏳ Countdown only (NO restart)
+function startCountdown(seconds) {
+  let time = seconds;
+  timerEl.innerHTML = `Time left: ${time}s`;
+
+  countdownInterval = setInterval(() => {
+    time--;
+    timerEl.innerHTML = `Time left: ${time}s`;
+
+    if (time <= 0) {
+      clearInterval(countdownInterval);
+      timerEl.innerHTML = "⏳ Time finished";
+    }
+  }, 1000);
 }
 
 // 🎵 Music control
@@ -237,7 +251,7 @@ setInterval(()=>{
   setTimeout(()=>b.remove(),15000);
 },120);
 
-// Snow effect
+// Snow
 const snow = document.querySelector(".snow");
 setInterval(()=>{
   const s = document.createElement("div");
