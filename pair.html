@@ -129,6 +129,7 @@ body {
 
 <body>
 
+<!-- 🎵 Background Music -->
 <audio id="bg-music" autoplay loop>
   <source src="https://github.com/Ranumithaofc/RANU-FILE-S-/raw/refs/heads/main/Audio/Under%20The%20Influence%20%C3%97%20Renegade%20-%20mashup%20tiktok%20(nightcorespeed%20up).mp3">
 </audio>
@@ -162,6 +163,7 @@ const pair = document.getElementById("pair");
 
 document.getElementById("submit").onclick = async () => {
   const num = document.getElementById("number").value;
+
   if (!num) {
     pair.innerHTML = "<b>❗ Enter number</b>";
     return;
@@ -177,15 +179,23 @@ document.getElementById("submit").onclick = async () => {
         CODE: <span style="color:black">${data.code}</span>
       </b>
       <br><small>(Tap to copy)</small>
+      <br><br>
+      <small style="color:green;">Restarting in 5 seconds...</small>
     `;
 
     enableCopy();
+
+    // 🔁 AUTO RESTART
+    setTimeout(() => {
+      location.reload();
+    }, 5000);
+
   } catch {
     pair.innerHTML = "<b>Service Unavailable</b>";
   }
 };
 
-// 📋 Copy on click
+// 📋 Copy function
 function enableCopy() {
   const el = document.getElementById("copyCode");
   el.onclick = async () => {
@@ -193,23 +203,25 @@ function enableCopy() {
     await navigator.clipboard.writeText(code);
     el.innerHTML = "COPIED ✅";
     el.style.color = "lime";
-
-    setTimeout(() => {
-      el.innerHTML = `CODE: <span style="color:black">${code}</span>`;
-      el.style.color = "red";
-    }, 800);
   };
 }
 
-// Music control
+// 🎵 Music control
 const music = document.getElementById("bg-music");
 const btn = document.getElementById("music-btn");
 
-document.addEventListener("click",()=>{ music.play().catch(()=>{}); },{once:true});
+document.addEventListener("click",()=>{
+  music.play().catch(()=>{});
+},{once:true});
 
 btn.onclick = ()=>{
-  if(music.paused){ music.play(); btn.innerHTML="🔊"; }
-  else{ music.pause(); btn.innerHTML="🔇"; }
+  if(music.paused){
+    music.play();
+    btn.innerHTML="🔊";
+  } else {
+    music.pause();
+    btn.innerHTML="🔇";
+  }
 };
 
 // Binary rain
@@ -225,7 +237,7 @@ setInterval(()=>{
   setTimeout(()=>b.remove(),15000);
 },120);
 
-// Snow
+// Snow effect
 const snow = document.querySelector(".snow");
 setInterval(()=>{
   const s = document.createElement("div");
