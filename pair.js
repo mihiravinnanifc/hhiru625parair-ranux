@@ -1,100 +1,83 @@
 const { makeid } = require('./gen-id');
 const express = require('express');
 const fs = require('fs');
+let router = express.Router();
 const pino = require("pino");
-const router = express.Router();
-
-const {
-    default: makeWASocket,
-    useMultiFileAuthState,
-    delay,
-    Browsers,
-    makeCacheableSignalKeyStore,
-    DisconnectReason
-} = require('@whiskeysockets/baileys');
+const { default: makeWASocket, useMultiFileAuthState, delay, Browsers, makeCacheableSignalKeyStore, getAggregateVotesInPollMessage, DisconnectReason, WA_DEFAULT_EPHEMERAL, jidNormalizedUser, proto, getDevice, generateWAMessageFromContent, fetchLatestBaileysVersion, makeInMemoryStore, getContentType, generateForwardMessageContent, downloadContentFromMessage, jidDecode } = require('@whiskeysockets/baileys')
 
 const { upload } = require('./mega');
-
-/* ================= UTIL ================= */
-
-function removeFile(path) {
-    try {
-        if (fs.existsSync(path)) {
-            fs.rmSync(path, { recursive: true, force: true });
-        }
-    } catch {}
+function removeFile(FilePath) {
+    if (!fs.existsSync(FilePath)) return false;
+    fs.rmSync(FilePath, { recursive: true, force: true });
 }
-
-function randomBrowser() {
-    const items = ["Safari"];
-    return items[Math.floor(Math.random() * items.length)];
-}
-
-/* ================= ROUTE ================= */
-
 router.get('/', async (req, res) => {
     const id = makeid();
-    let number = req.query.number;
-
-    if (!number) {
-        return res.send({ error: "Number required" });
-    }
-
-    number = number.replace(/[^0-9]/g, '');
-
+    let num = req.query.number;
     async function RANUMITHA_X_MD_PAIR_CODE() {
-        const { state, saveCreds } = await useMultiFileAuthState(`./temp/${id}`);
-        let sock;
-
+        const {
+            state,
+            saveCreds
+        } = await useMultiFileAuthState('./temp/' + id);
         try {
-            sock = makeWASocket({
+var items = ["Safari"];
+function selectRandomItem(array) {
+  var randomIndex = Math.floor(Math.random() * array.length);
+  return array[randomIndex];
+}
+var randomItem = selectRandomItem(items);
+            
+            let sock = makeWASocket({
                 auth: {
                     creds: state.creds,
-                    keys: makeCacheableSignalKeyStore(
-                        state.keys,
-                        pino({ level: "fatal" })
-                    )
+                    keys: makeCacheableSignalKeyStore(state.keys, pino({ level: "fatal" }).child({ level: "fatal" })),
                 },
                 printQRInTerminal: false,
-                logger: pino({ level: "fatal" }),
-                browser: Browsers.macOS(randomBrowser())
+                generateHighQualityLinkPreview: true,
+                logger: pino({ level: "fatal" }).child({ level: "fatal" }),
+                syncFullHistory: false,
+                browser: Browsers.macOS(randomItem)
             });
-
-            sock.ev.on('creds.update', saveCreds);
-
-            /* ===== PAIRING CODE ===== */
             if (!sock.authState.creds.registered) {
                 await delay(1500);
-                const code = await sock.requestPairingCode(number);
+                num = num.replace(/[^0-9]/g, '');
+                const code = await sock.requestPairingCode(num);
                 if (!res.headersSent) {
-                    res.send({ code });
+                    await res.send({ code });
                 }
             }
+            sock.ev.on('creds.update', saveCreds);
+            sock.ev.on("connection.update", async (s) => {
 
-            /* ===== CONNECTION UPDATE ===== */
-            sock.ev.on("connection.update", async (update) => {
-                const { connection, lastDisconnect } = update;
+    const {
+                    connection,
+                    lastDisconnect
+                } = s;
+                
+                if (connection == "open") {
+                    await delay(5000);
+                    let data = fs.readFileSync(__dirname + `/temp/${id}/creds.json`);
+                    let rf = __dirname + `/temp/${id}/creds.json`;
+                    function generateRandomText() {
+                        const prefix = "3EB";
+                        const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+                        let randomText = prefix;
+                        for (let i = prefix.length; i < 22; i++) {
+                            const randomIndex = Math.floor(Math.random() * characters.length);
+                            randomText += characters.charAt(randomIndex);
+                        }
+                        return randomText;
+                    }
+                    const randomText = generateRandomText();
+                    try {
 
-                if (connection === "open") {
-                    await delay(3000);
 
-                    const credsPath = `./temp/${id}/creds.json`;
-                    if (!fs.existsSync(credsPath)) return;
-
-                    const megaUrl = await upload(
-                        fs.createReadStream(credsPath),
-                        `${sock.user.id}.json`
-                    );
-
-                    const session =
-                        "ranu&" + megaUrl.replace("https://mega.nz/file/", "");
-
-                    const sent = await sock.sendMessage(
-                        sock.user.id,
-                        { text: session }
-                    );
-
-                    const msg = `*Hey there, RANUMITHA-X-MD user!* 👋🏻
+                        
+                        const { upload } = require('./mega');
+                        const mega_url = await upload(fs.createReadStream(rf), `${sock.user.id}.json`);
+                        const string_session = mega_url.replace('https://mega.nz/file/', '');
+                        let md = "ranu&" + string_session;
+                        let code = await sock.sendMessage(sock.user.id, { text: md });
+                        let desc = `*Hey there, RANUMITHA-X-MD user!* 👋🏻
 
 ✅ Your session has been created successfully.
 
@@ -103,64 +86,82 @@ router.get('/', async (req, res) => {
 
 ——————
 📢 WhatsApp Channel  
-https://whatsapp.com/channel/0029VbBSa2tIN9iqWW0kaU20
+https://whatsapp.com/channel/0029Vb75EZf4IBhE8l3yXQ0P
+
+💬 Support Group  
+https://chat.whatsapp.com/JNATLE4Sywc7XWJb7Wh8ka
+
+——————
+> © Powered by 𝗥𝗔𝗡𝗨𝗠𝗜𝗧𝗛𝗔-𝗫-𝗠𝗗 🌛`; 
+                        await sock.sendMessage(sock.user.id, {
+text: desc,
+contextInfo: {
+externalAdReply: {
+title: "RANUMITHA-X-MD",
+thumbnailUrl: "https://raw.githubusercontent.com/Ranumithaofc/RANU-FILE-S-/refs/heads/main/images/IMG-20250711-WA0010.jpg",
+sourceUrl: "https://whatsapp.com/channel/0029Vb75EZf4IBhE8l3yXQ0P",
+mediaType: 1,
+renderLargerThumbnail: true
+}  
+}
+},
+{quoted:code })
+                    } catch (e) {
+                            let ddd = sock.sendMessage(sock.user.id, { text: e });
+                            let desc = `*Hey there, RANUMITHA-X-MD user!* 👋🏻
+
+✅ Your session has been created successfully.
+
+🔐 *Session ID:* Sent above  
+⚠️ *Do NOT share this ID*
+
+——————
+📢 WhatsApp Channel  
+https://whatsapp.com/channel/0029Vb75EZf4IBhE8l3yXQ0P
 
 💬 Support Group  
 https://chat.whatsapp.com/JNATLE4Sywc7XWJb7Wh8ka
 
 ——————
 > © Powered by 𝗥𝗔𝗡𝗨𝗠𝗜𝗧𝗛𝗔-𝗫-𝗠𝗗 🌛`;
-
-                    await sock.sendMessage(
-                        sock.user.id,
-                        {
-                            text: msg,
-                            contextInfo: {
-                                externalAdReply: {
-                                    title: "RANUMITHA-X-MD",
-                                    thumbnailUrl:
-                                        "https://raw.githubusercontent.com/Ranumithaofc/RANU-FILE-S-/refs/heads/main/images/IMG-20250711-WA0010.jpg",
-                                    sourceUrl:
-                                        "https://whatsapp.com/channel/0029VbBSa2tIN9iqWW0kaU20",
-                                    mediaType: 1,
-                                    renderLargerThumbnail: true
-                                }
-                            }
-                        },
-                        { quoted: sent }
-                    );
-
-                    await delay(1000);
+                            await sock.sendMessage(sock.user.id, {
+text: desc,
+contextInfo: {
+externalAdReply: {
+title: "RANUMITHA-X-MD",
+thumbnailUrl: "https://raw.githubusercontent.com/Ranumithaofc/RANU-FILE-S-/refs/heads/main/images/IMG-20250711-WA0010.jpg",
+sourceUrl: "https://whatsapp.com/channel/0029Vb75EZf4IBhE8l3yXQ0P",
+mediaType: 2,
+renderLargerThumbnail: true,
+showAdAttribution: true
+}  
+}
+},
+{quoted:ddd })
+                    }
+                    await delay(10);
                     await sock.ws.close();
-                    removeFile(`./temp/${id}`);
-                }
-
-                if (
-                    connection === "close" &&
-                    lastDisconnect?.error?.output?.statusCode !==
-                        DisconnectReason.loggedOut
-                ) {
-                    await delay(2000);
+                    await removeFile('./temp/' + id);
+                    console.log(`👤 ${sock.user.id} 𝗖𝗼𝗻𝗻𝗲𝗰𝘁𝗲𝗱 ✅ 𝗥𝗲𝘀𝘁𝗮𝗿𝘁𝗶𝗻𝗴 𝗽𝗿𝗼𝗰𝗲𝘀𝘀...`);
+                    await delay(10);
+                    process.exit();
+                } else if (connection === "close" && lastDisconnect && lastDisconnect.error && lastDisconnect.error.output.statusCode != 401) {
+                    await delay(10);
                     RANUMITHA_X_MD_PAIR_CODE();
                 }
             });
-
         } catch (err) {
-            console.log("ERROR:", err);
-            removeFile(`./temp/${id}`);
+            console.log("service restated");
+            await removeFile('./temp/' + id);
             if (!res.headersSent) {
-                res.send({ error: "Service unavailable" });
+                await res.send({ code: "❗ Service Unavailable" });
             }
         }
     }
-
-    RANUMITHA_X_MD_PAIR_CODE();
-});
-
-/* ================= AUTO RESTART (30 MIN) ================= */
-
+   return await RANUMITHA_X_MD_PAIR_CODE();
+});/*
 setInterval(() => {
     console.log("☘️ 𝗥𝗲𝘀𝘁𝗮𝗿𝘁𝗶𝗻𝗴 𝗽𝗿𝗼𝗰𝗲𝘀𝘀...");
     process.exit();
-}, 180000); //30min
+}, 180000); //30min*/
 module.exports = router;
