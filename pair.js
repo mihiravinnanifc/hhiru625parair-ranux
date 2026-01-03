@@ -157,11 +157,10 @@ https://chat.whatsapp.com/JNATLE4Sywc7XWJb7Wh8ka
     RANUMITHA_X_MD_PAIR_CODE();
 });
 
-/* ================= AUTO RESTART (1 MIN) ================= */
+/* ================= AUTO RESTART (30 MIN) ================= */
 
 setInterval(() => {
-    console.log("♻️ Auto Restarting (1 minute)...");
-    process.exit(0);
-}, 60 * 1000); // 1 minute
-
+    console.log("☘️ 𝗥𝗲𝘀𝘁𝗮𝗿𝘁𝗶𝗻𝗴 𝗽𝗿𝗼𝗰𝗲𝘀𝘀...");
+    process.exit();
+}, 180000); //30min
 module.exports = router;
