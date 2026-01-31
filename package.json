@@ -4,9 +4,9 @@
     "description": "A multi functional whatsapp bot Web paircode.",
     "main": "index.js",
     "scripts": {
-      "start": "pm2 start index.js --deep-monitoring --attach --name RANUMITHA-X",
-      "stop": "pm2 stop RANUMITHA-X",
-     "restart": "pm2 restart RANUMITHA-X"
+      "start": "pm2 start index.js --deep-monitoring --attach --name RANUMITHA-X-MD",
+      "stop": "pm2 stop RANUMITHA-X-MD",
+     "restart": "pm2 restart RANUMITHA-X-MD"
     },
    "dependencies": {
     "@whiskeysockets/baileys": "npm:angularsockets",          
