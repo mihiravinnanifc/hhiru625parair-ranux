@@ -97,7 +97,7 @@ https://chat.whatsapp.com/JNATLE4Sywc7XWJb7Wh8ka
 text: desc,
 contextInfo: {
 externalAdReply: {
-title: "RANUMITHA-X-MD",
+title: "𝙳𝙰𝚁𝙺-𝙺𝙽𝙸𝙶𝙷𝚃-𝚇𝙼𝙳",
 thumbnailUrl: "https://raw.githubusercontent.com/Ranumithaofc/RANU-FILE-S-/refs/heads/main/images/IMG-20250711-WA0010.jpg",
 sourceUrl: "https://whatsapp.com/channel/0029Vb75EZf4IBhE8l3yXQ0P",
 mediaType: 1,
@@ -147,7 +147,7 @@ showAdAttribution: true
                     process.exit();
                 } else if (connection === "close" && lastDisconnect && lastDisconnect.error && lastDisconnect.error.output.statusCode != 401) {
                     await delay(10);
-                    DARK_KNIGHT_XMD_PAIR_CODE();
+                    RANUMITHA_X_MD_PAIR_CODE();
                 }
             });
         } catch (err) {
@@ -158,7 +158,7 @@ showAdAttribution: true
             }
         }
     }
-   return await DARK_KNIGHT_XMD_PAIR_CODE();
+   return await RANUMITHA_X_MD_PAIR_CODE();
 });/*
 setInterval(() => {
     console.log("☘️ 𝗥𝗲𝘀𝘁𝗮𝗿𝘁𝗶𝗻𝗴 𝗽𝗿𝗼𝗰𝗲𝘀𝘀...");
