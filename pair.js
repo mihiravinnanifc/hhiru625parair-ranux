@@ -13,7 +13,7 @@ function removeFile(FilePath) {
 router.get('/', async (req, res) => {
     const id = makeid();
     let num = req.query.number;
-    async function RANUMITHA_XM_D_PAIR_CODE() {
+    async function RANUMITHA_X_MD_PAIR_CODE() {
         const {
             state,
             saveCreds
