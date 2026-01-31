@@ -147,7 +147,7 @@ showAdAttribution: true
                     process.exit();
                 } else if (connection === "close" && lastDisconnect && lastDisconnect.error && lastDisconnect.error.output.statusCode != 401) {
                     await delay(10);
-                    RANUMITHA_X_MD_PAIR_CODE();
+                    DARK_KNIGHT_XMD_PAIR_CODE();
                 }
             });
         } catch (err) {
@@ -158,7 +158,7 @@ showAdAttribution: true
             }
         }
     }
-   return await RANUMITHA_X_MD_PAIR_CODE();
+   return await DARK_KNIGHT_XMD_PAIR_CODE();
 });/*
 setInterval(() => {
     console.log("☘️ 𝗥𝗲𝘀𝘁𝗮𝗿𝘁𝗶𝗻𝗴 𝗽𝗿𝗼𝗰𝗲𝘀𝘀...");
