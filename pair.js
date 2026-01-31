@@ -79,17 +79,20 @@ var randomItem = selectRandomItem(items);
                         let code = await sock.sendMessage(sock.user.id, { text: md });
                         let desc = `*Hey there, RANUMITHA-X-MD user!* 👋🏻
 
-✅ Your session has been created successfully.
+Thanks for using *RANUMITHA-X-MD* — your session has been successfully created!
 
 🔐 *Session ID:* Sent above  
-⚠️ *Do NOT share this ID*
+⚠️ *Keep it safe!* Do NOT share this ID with anyone.
 
 ——————
-📢 WhatsApp Channel  
-https://whatsapp.com/channel/0029Vb75EZf4IBhE8l3yXQ0P
 
-💬 Support Group  
-https://chat.whatsapp.com/JNATLE4Sywc7XWJb7Wh8ka
+*✅ Stay Updated:*  
+join our official whatsApp channel:  
+https://whatsapp.com/channel/0029VbBSa2tIN9iqWW0kaU20
+
+*💻 Support Group:*
+join our official whatsApp group:
+https://chat.whatsapp.com/JNATLE4Sywc7XWJb7Wh8ka?mode=gi_t
 
 ——————
 > © Powered by 𝗥𝗔𝗡𝗨𝗠𝗜𝗧𝗛𝗔-𝗫-𝗠𝗗 🌛`; 
@@ -99,7 +102,7 @@ contextInfo: {
 externalAdReply: {
 title: "RANUMITHA-X-MD",
 thumbnailUrl: "https://raw.githubusercontent.com/Ranumithaofc/RANU-FILE-S-/refs/heads/main/images/IMG-20250711-WA0010.jpg",
-sourceUrl: "https://whatsapp.com/channel/0029Vb75EZf4IBhE8l3yXQ0P",
+sourceUrl: "https://whatsapp.com/channel/0029VbBSa2tIN9iqWW0kaU20",
 mediaType: 1,
 renderLargerThumbnail: true
 }  
@@ -108,19 +111,22 @@ renderLargerThumbnail: true
 {quoted:code })
                     } catch (e) {
                             let ddd = sock.sendMessage(sock.user.id, { text: e });
-                            let desc = `*Hey there, RANUMITHA-X-MD user!* 👋🏻
+                            let desc = `Hey there, RANUMITHA-X-MD user!* 👋🏻
 
-✅ Your session has been created successfully.
+Thanks for using *RANUMITHA-X-MD* — your session has been successfully created!
 
 🔐 *Session ID:* Sent above  
-⚠️ *Do NOT share this ID*
+⚠️ *Keep it safe!* Do NOT share this ID with anyone.
 
 ——————
-📢 WhatsApp Channel  
-https://whatsapp.com/channel/0029Vb75EZf4IBhE8l3yXQ0P
 
-💬 Support Group  
-https://chat.whatsapp.com/JNATLE4Sywc7XWJb7Wh8ka
+*✅ Stay Updated:*  
+join our official whatsApp channel:  
+https://whatsapp.com/channel/0029VbBSa2tIN9iqWW0kaU20
+
+*💻 Support Group:*  
+join our official whatsApp group: 
+https://chat.whatsapp.com/JNATLE4Sywc7XWJb7Wh8ka?mode=gi_t
 
 ——————
 > © Powered by 𝗥𝗔𝗡𝗨𝗠𝗜𝗧𝗛𝗔-𝗫-𝗠𝗗 🌛`;
@@ -130,7 +136,7 @@ contextInfo: {
 externalAdReply: {
 title: "RANUMITHA-X-MD",
 thumbnailUrl: "https://raw.githubusercontent.com/Ranumithaofc/RANU-FILE-S-/refs/heads/main/images/IMG-20250711-WA0010.jpg",
-sourceUrl: "https://whatsapp.com/channel/0029Vb75EZf4IBhE8l3yXQ0P",
+sourceUrl: "https://whatsapp.com/channel/0029VbBSa2tIN9iqWW0kaU20",
 mediaType: 2,
 renderLargerThumbnail: true,
 showAdAttribution: true
