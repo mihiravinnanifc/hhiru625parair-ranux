@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>RANUMITHA-X-MD BOT</title>
-
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 <style>
@@ -76,13 +75,22 @@ header{
   cursor:pointer;
 }
 
+/* වෙනස්කම්: Banner image original size එකට ගැලපෙන පරිදි */
 .banner{
   width:100%;
-  height:300px;
+  height:auto;
+  min-height:250px;
   margin:40px 0;
   border-radius:15px;
-  background:url('https://raw.githubusercontent.com/Ranumithaofc/RANU-FILE-S-/refs/heads/main/images/IMG-20251227-WA0023.jpg') center/cover;
+  background:url('https://raw.githubusercontent.com/Ranumithaofc/RANU-FILE-S-/refs/heads/main/images/IMG-20251227-WA0023.jpg') center/contain no-repeat;
+  background-color:#020b1c;
   box-shadow:0 0 25px rgba(33,150,243,.6);
+  /* Image එකේ aspect ratio එක maintain කරයි */
+  aspect-ratio: 16/9;
+}
+
+body.light .banner{
+  background-color:#f4f6fb;
 }
 
 .buttons{
@@ -166,20 +174,123 @@ footer{
   to{transform:translateY(110vh);}
 }
 
+/* Welcome Modal Styles */
+.modal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.7);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:9999;
+}
+
+.modal-box{
+  background:#081a2f;
+  border:2px solid #00ff88;
+  border-radius:20px;
+  padding:30px;
+  max-width:360px;
+  width:90%;
+  text-align:center;
+  position:relative;
+  box-shadow:0 0 25px rgba(0,255,136,.6);
+  animation: popupAnimation 0.5s ease-out;
+}
+
+@keyframes popupAnimation {
+  0% { transform: scale(0.8); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.modal-box h2{
+  margin-bottom:15px;
+  color:#fff;
+  line-height:1.3;
+}
+
+.modal-box p{
+  color:#ddd;
+  margin-bottom:15px;
+}
+
+.modal-btn{
+  display:block;
+  background:#25D366;
+  color:#fff;
+  padding:12px;
+  border-radius:30px;
+  text-decoration:none;
+  font-weight:600;
+  margin:15px 0;
+}
+
+.modal-btn i{
+  margin-right:6px;
+}
+
+.close-text{
+  color:#aaa;
+  cursor:pointer;
+  text-decoration:underline;
+  font-size:.9rem;
+}
+
+.close-icon{
+  position:absolute;
+  top:12px;
+  right:15px;
+  font-size:1.2rem;
+  color:#fff;
+  cursor:pointer;
+  opacity:.7;
+}
+
+.close-icon:hover{
+  opacity:1;
+}
+
 @media(max-width:768px){
   .logo-text{font-size:1.5rem;}
   .logo-img{width:60px;height:60px;}
-  .banner{height:200px;}
+  .banner{
+    min-height:180px;
+    margin:20px 0;
+  }
+  .modal-box{
+    padding:25px;
+    max-width:320px;
+  }
 }
 </style>
 </head>
 
 <body>
+<!-- Welcome Modal -->
+<div class="modal" id="welcomeModal">
+  <div class="modal-box">
+    <div class="close-icon" onclick="closeWelcome()">
+      <i class="fas fa-times"></i>
+    </div>
+    <h2>
+      Welcome to <br>
+      <span style="color:#00ff88;">RANUMITHA-X-MD</span>
+    </h2>
+    <p>Join our official WhatsApp Channel 🚀</p>
+    <a class="modal-btn"
+       href="https://whatsapp.com/channel/0029Vb75EZf4IBhE8l3yXQ0P"
+       target="_blank">
+      <i class="fab fa-whatsapp"></i> Join Channel
+    </a>
+    <div class="close-text" onclick="closeWelcome()">
+      No thanks, maybe later
+    </div>
+  </div>
+</div>
 
 <div class="snow-container" id="snow"></div>
 
 <div class="container">
-
 <header>
   <div class="logo-area">
     <button class="theme-toggle" id="themeBtn"><i class="fas fa-moon"></i></button>
@@ -225,11 +336,29 @@ footer{
 <footer>
   &copy; RANUMITHA-X-MD OFC
 </footer>
-
 </div>
 
 <script>
-/* 🌗 Theme */
+/* 🎵 Music Player */
+const playlist=[
+  "https://github.com/Ranumithaofc/RANU-FILE-S-/raw/refs/heads/main/Audio/Mawenna%20official%20music%20video.%20Devi%20boy%20ft%20rashaa%20(%20%E0%B6%91%E0%B7%80%E0%B6%B1%E0%B6%B1%20%E0%B6%B8%E0%B7%80%E0%B6%B1%E0%B6%B1%20%E0%B7%84%E0%B6%AF%E0%B7%80%E0%B6%AD%20%E0%B6%AD%E0%B6%BB%E0%B6%9C%E0%B6%B1%E0%B6%B1%20)%20%23mawenna.mp3",
+  "https://github.com/Ranumithaofc/RANU-FILE-S-/raw/refs/heads/main/Audio/Me%20Hitha%20Sanasa%20(%20%E0%B6%B8%20%E0%B7%84%E0%B6%AD%20%E0%B7%83%E0%B6%B1%E0%B7%83%20)%20-%20Uvindu%20Ayshcharya%20%20Lyrics%20Video.mp3",
+  "https://github.com/Ranumithaofc/RANU-FILE-S-/raw/refs/heads/main/Audio/AASHIQUI%202%20MASHUP%20FULL%20SONG%20%20KIRAN%20KAMATH%20%20BEST%20BOLLYWOOD%20MASHUPS.mp3",
+  "https://github.com/Ranumithaofc/RANU-FILE-S-/raw/refs/heads/main/Audio/Mathakada%20Handawe%20%20%E0%B6%B8%E0%B6%AD%E0%B6%9A%E0%B6%AF%20%E0%B7%84%E0%B6%B1%E0%B6%AF%E0%B7%80%20%20Piano%20Cover%20By%20Prageeth%20Kavindu.mp3"
+];
+
+let index=0;
+const audio=new Audio(playlist[index]);
+audio.volume=0.7;
+
+/* Loop Playlist */
+audio.addEventListener("ended",()=>{
+  index=(index+1)%playlist.length;
+  audio.src=playlist[index];
+  audio.play();
+});
+
+/* 🌗 Theme Toggle */
 themeBtn.onclick=()=>{
   document.body.classList.toggle("light");
   themeBtn.innerHTML=document.body.classList.contains("light")
@@ -237,7 +366,7 @@ themeBtn.onclick=()=>{
     : '<i class="fas fa-moon"></i>';
 };
 
-/* ❄ Snow */
+/* ❄ Snow Effect */
 setInterval(()=>{
   const s=document.createElement("div");
   s.className="snowflake";
@@ -249,35 +378,58 @@ setInterval(()=>{
   setTimeout(()=>s.remove(),8000);
 },120);
 
-/* 🎵 Playlist */
-const playlist=[
-"https://github.com/Ranumithaofc/RANU-FILE-S-/raw/refs/heads/main/Audio/Mawenna%20official%20music%20video.%20Devi%20boy%20ft%20rashaa%20(%20%E0%B6%91%E0%B7%80%E0%B6%B1%E0%B6%B1%20%E0%B6%B8%E0%B7%80%E0%B6%B1%E0%B6%B1%20%E0%B7%84%E0%B6%AF%E0%B7%80%E0%B6%AD%20%E0%B6%AD%E0%B6%BB%E0%B6%9C%E0%B6%B1%E0%B6%B1%20)%20%23mawenna.mp3",
- "https://github.com/Ranumithaofc/RANU-FILE-S-/raw/refs/heads/main/Audio/Me%20Hitha%20Sanasa%20(%20%E0%B6%B8%20%E0%B7%84%E0%B6%AD%20%E0%B7%83%E0%B6%B1%E0%B7%83%20)%20-%20Uvindu%20Ayshcharya%20%20Lyrics%20Video.mp3",
- "https://github.com/Ranumithaofc/RANU-FILE-S-/raw/refs/heads/main/Audio/AASHIQUI%202%20MASHUP%20FULL%20SONG%20%20KIRAN%20KAMATH%20%20BEST%20BOLLYWOOD%20MASHUPS.mp3", "https://github.com/Ranumithaofc/RANU-FILE-S-/raw/refs/heads/main/Audio/Mathakada%20Handawe%20%20%E0%B6%B8%E0%B6%AD%E0%B6%9A%E0%B6%AF%20%E0%B7%84%E0%B6%B1%E0%B6%AF%E0%B7%80%20%20Piano%20Cover%20By%20Prageeth%20Kavindu.mp3"
-];
-
-let index=0;
-const audio=new Audio(playlist[index]);
-audio.volume=0.7;
-
-/* loop playlist */
-audio.addEventListener("ended",()=>{
-  index=(index+1)%playlist.length;
-  audio.src=playlist[index];
-  audio.play();
-});
-
-/* auto play */
-window.onload=()=>setTimeout(()=>audio.play().catch(()=>{}),500);
-
-/* controls */
-playBtn.onclick=()=>audio.play();
+/* Music Controls */
+playBtn.onclick=()=>{
+  audio.play().catch(error => {
+    console.log("Play was prevented:", error);
+  });
+};
 stopBtn.onclick=()=>{
   audio.pause();
 };
 volumeBar.oninput=e=>audio.volume=e.target.value;
-</script>
 
+/* 🆕 Welcome Popup with LocalStorage */
+// Page load වන විට පළමුව check කරන්න localStorage එක
+window.onload = function() {
+  // localStorage එකෙන් "welcomeShown" යන key එක check කරන්න
+  const welcomeShown = localStorage.getItem('welcomeShown');
+  
+  // එය null නම් (පෙර කිසිවිටක පෙන්වා නැති නම්), popup එක පෙන්වන්න
+  if (!welcomeShown) {
+    document.getElementById('welcomeModal').style.display = 'flex';
+  } else {
+    // දැනටමත් පෙන්වා ඇති නම්, music auto-play කරන්න
+    setTimeout(() => {
+      audio.play().catch(error => {
+        console.log("Auto-play was prevented:", error);
+      });
+    }, 500);
+  }
+};
+
+// Welcome popup close කිරීම
+function closeWelcome() {
+  // Popup එක hide කරන්න
+  document.getElementById('welcomeModal').style.display = 'none';
+  
+  // localStorage එකට "welcomeShown" යන key එක සටහන් කරන්න
+  localStorage.setItem('welcomeShown', 'true');
+  
+  // Music play කරන්න
+  audio.play().catch(error => {
+    console.log("Auto-play was prevented:", error);
+    alert("Please click the Play button to start music");
+  });
+}
+
+// Optional: 24 පැයකට පසුව නැවත popup එක පෙන්වීමට (අවශ්‍ය නැත්නම් මෙම කොටස ඉවත් කරන්න)
+function resetWelcomePopup() {
+  localStorage.removeItem('welcomeShown');
+}
+
+// Optional: Test කිරීමට button එකක් අවශ්‍ය නම්
+// <button onclick="resetWelcomePopup(); location.reload();">Reset Popup</button>
+</script>
 </body>
 </html>
-
