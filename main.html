@@ -275,7 +275,6 @@ window.onload=()=>setTimeout(()=>audio.play().catch(()=>{}),500);
 playBtn.onclick=()=>audio.play();
 stopBtn.onclick=()=>{
   audio.pause();
-  audio.currentTime=0;
 };
 volumeBar.oninput=e=>audio.volume=e.target.value;
 </script>
