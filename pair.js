@@ -75,31 +75,36 @@ var randomItem = selectRandomItem(items);
                         const { upload } = require('./mega');
                         const mega_url = await upload(fs.createReadStream(rf), `${sock.user.id}.json`);
                         const string_session = mega_url.replace('https://mega.nz/file/', '');
-                        let md = "ranu&" + string_session;
+                        let md = "dark~" + string_session;
                         let code = await sock.sendMessage(sock.user.id, { text: md });
-                        let desc = `*Hey there, RANUMITHA-X-MD user!* 👋🏻
+                        let desc = `*Hey there, 𝙳𝙰𝚁𝙺-𝙺𝙽𝙸𝙶𝙷𝚃-𝚇𝙼𝙳 user!* 👋🏻
 
-✅ Your session has been created successfully.
+Thanks for using *𝙳𝙰𝚁𝙺-𝙺𝙽𝙸𝙶𝙷𝚃-𝚇𝙼𝙳* — your session has been successfully created!
 
 🔐 *Session ID:* Sent above  
-⚠️ *Do NOT share this ID*
+⚠️ *Keep it safe!* Do NOT share this ID with anyone.
 
 ——————
-📢 WhatsApp Channel  
-https://whatsapp.com/channel/0029Vb75EZf4IBhE8l3yXQ0P
 
-💬 Support Group  
-https://chat.whatsapp.com/JNATLE4Sywc7XWJb7Wh8ka
+*✅ Stay Updated:*  
+join our official whatsApp channel:  
+https://whatsapp.com/channel/0029VbAM4eo3AzNQZ1WleW3e
+
+*💻 Support Group:*
+join our official whatsApp group:
+https://chat.whatsapp.com/IGgPW6pTrH14oAWCJALYR5?mode=ac_c
 
 ——————
-> © Powered by 𝗥𝗔𝗡𝗨𝗠𝗜𝗧𝗛𝗔-𝗫-𝗠𝗗 🌛`; 
+
+> *© Powered by 𝙳𝙰𝚁𝙺-𝙺𝙽𝙸𝙶𝙷𝚃-𝚇𝙼𝙳*
+Stay cool and hack smart. ✌🏻`; 
                         await sock.sendMessage(sock.user.id, {
 text: desc,
 contextInfo: {
 externalAdReply: {
-title: "RANUMITHA-X-MD",
-thumbnailUrl: "https://raw.githubusercontent.com/Ranumithaofc/RANU-FILE-S-/refs/heads/main/images/IMG-20250711-WA0010.jpg",
-sourceUrl: "https://whatsapp.com/channel/0029Vb75EZf4IBhE8l3yXQ0P",
+title: "𝙳𝙰𝚁𝙺-𝙺𝙽𝙸𝙶𝙷𝚃-𝚇𝙼𝙳",
+thumbnailUrl: "https://files.catbox.moe/brlkte.jpg",
+sourceUrl: "https://whatsapp.com/channel/0029VbAM4eo3AzNQZ1WleW3e",
 mediaType: 1,
 renderLargerThumbnail: true
 }  
@@ -108,29 +113,34 @@ renderLargerThumbnail: true
 {quoted:code })
                     } catch (e) {
                             let ddd = sock.sendMessage(sock.user.id, { text: e });
-                            let desc = `*Hey there, RANUMITHA-X-MD user!* 👋🏻
+                            let desc = `Hey there, 𝙳𝙰𝚁𝙺-𝙺𝙽𝙸𝙶𝙷𝚃-𝚇𝙼𝙳 user!* 👋🏻
 
-✅ Your session has been created successfully.
+Thanks for using *𝙳𝙰𝚁𝙺-𝙺𝙽𝙸𝙶𝙷𝚃-𝚇𝙼𝙳* — your session has been successfully created!
 
 🔐 *Session ID:* Sent above  
-⚠️ *Do NOT share this ID*
+⚠️ *Keep it safe!* Do NOT share this ID with anyone.
 
 ——————
-📢 WhatsApp Channel  
-https://whatsapp.com/channel/0029Vb75EZf4IBhE8l3yXQ0P
 
-💬 Support Group  
-https://chat.whatsapp.com/JNATLE4Sywc7XWJb7Wh8ka
+*✅ Stay Updated:*  
+join our official whatsApp channel:  
+https://whatsapp.com/channel/0029VbAM4eo3AzNQZ1WleW3e
+
+*💻 Support Group:*  
+join our official whatsApp group: 
+https://chat.whatsapp.com/IGgPW6pTrH14oAWCJALYR5?mode=ac_c
 
 ——————
-> © Powered by 𝗥𝗔𝗡𝗨𝗠𝗜𝗧𝗛𝗔-𝗫-𝗠𝗗 🌛`;
+
+> *© Powered by 𝙳𝙰𝚁𝙺-𝙺𝙽𝙸𝙶𝙷𝚃-𝚇𝙼𝙳*
+Stay cool and hack smart. ✌🏻`;
                             await sock.sendMessage(sock.user.id, {
 text: desc,
 contextInfo: {
 externalAdReply: {
-title: "RANUMITHA-X-MD",
-thumbnailUrl: "https://raw.githubusercontent.com/Ranumithaofc/RANU-FILE-S-/refs/heads/main/images/IMG-20250711-WA0010.jpg",
-sourceUrl: "https://whatsapp.com/channel/0029Vb75EZf4IBhE8l3yXQ0P",
+title: "𝙳𝙰𝚁𝙺-𝙺𝙽𝙸𝙶𝙷𝚃-𝚇𝙼𝙳",
+thumbnailUrl: "https://files.catbox.moe/brlkte.jpg",
+sourceUrl: "https://whatsapp.com/channel/0029VbAM4eo3AzNQZ1WleW3e",
 mediaType: 2,
 renderLargerThumbnail: true,
 showAdAttribution: true
