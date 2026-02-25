@@ -9,7 +9,7 @@
      "restart": "pm2 restart RANUMITHA-X-MD"
     },
    "dependencies": {
-    "@whiskeysockets/baileys": "github:yagamidxd/baileys",          
+    "@whiskeysockets/baileys": "github:anjaiedgar/BaileysV1",          
     "@adiwajshing/keyed-db": "^0.2.4",
     "awesome-phonenumber": "^2.64.0",
     "pino": "^8.1.0",
